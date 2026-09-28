@@ -1,4 +1,4 @@
-import { generateAccessToken } from "../../../utils/jwt";
+import { generateAccessToken, generateRefreshToken } from "../../../utils/jwt";
 
 interface LoginParams {
   username?: string;
@@ -52,6 +52,8 @@ export const loginUser = async ({ username, password }: LoginParams) => {
     username: user.username,
   });
 
+  const refreshToken = generateRefreshToken(user.id);
+
   return {
     success: true,
     status: 200,
@@ -60,5 +62,7 @@ export const loginUser = async ({ username, password }: LoginParams) => {
       user: userWithoutPassword,
       accessToken: accessToken,
     },
+
+    refreshToken: refreshToken,
   };
 };

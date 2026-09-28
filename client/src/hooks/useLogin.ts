@@ -15,6 +15,9 @@ const useLogin = () => {
           username,
           password,
         },
+        {
+          withCredentials: true,
+        },
       );
 
       sessionStorage.setItem("access_token", res.data.data.accessToken);

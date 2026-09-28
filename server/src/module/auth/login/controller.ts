@@ -13,6 +13,12 @@ export const handleLogin = async (req: Request, res: Response) => {
       });
     }
 
+    res.cookie("refreshToken", result.refreshToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+    });
+
     return res.status(result.status).json({
       message: result.message,
       data: result.data,
