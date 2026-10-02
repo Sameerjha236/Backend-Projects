@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import ErrorState from "@/components/ErrorState";
-import Pagination from "@/components/Pagination";
-import UserCard from "@/components/UserCard";
-import UserSkeleton from "@/components/UserSkeleton";
+import ErrorState from "@/components/user/ErrorState";
+import Pagination from "@/components/common/Pagination";
+import UserCard from "@/components/user/UserCard";
+import UserSkeleton from "@/components/user/UserSkeleton";
 import useUserDetails from "@/hooks/getUserDetails";
 
 const ITEMS_PER_PAGE = 10;

@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { refreshAccessToken } from "./service";
+import { refreshAccessToken } from "./refresh.service";
 
 export const handleRefreshToken = (req: Request, res: Response) => {
   try {

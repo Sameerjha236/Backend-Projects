@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { handleRefreshToken } from "./controller";
+import { handleRefreshToken } from "./refresh.controller";
 
 const router = Router();
 
