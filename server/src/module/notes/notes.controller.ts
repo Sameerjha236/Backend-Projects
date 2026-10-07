@@ -2,6 +2,22 @@ import type { Request, Response } from "express";
 
 export const uploadNote = async (req: Request, res: Response) => {
   try {
+    const body = req.body;
+    const file = req.file;
+
+    if (!file) {
+      return res.status(400).json({ message: "File required" });
+    }
+
+    if (
+      !file.originalname.toLowerCase().endsWith(".md") ||
+      file.mimetype !== "text/markdown"
+    ) {
+      return res.status(400).json({
+        message: "Only Markdown files are allowed",
+      });
+    }
+
     return res.status(200).json({
       message: "Note uploaded successfully",
     });

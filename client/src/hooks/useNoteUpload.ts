@@ -41,8 +41,9 @@ const useNoteUpload = () => {
       setTitle("");
       setDesc("");
       removeFile();
-    } catch (error) {
-      toast.error("Something went wrong");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.response.data.message);
       console.error(error);
     }
   };

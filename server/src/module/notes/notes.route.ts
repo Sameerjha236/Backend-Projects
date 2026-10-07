@@ -7,9 +7,11 @@ import {
   getNoteHtml,
 } from "./notes.controller";
 
+import { upload } from "../../middleware/multerMiddleware";
+
 const router = Router();
 
-router.post("/upload", uploadNote);
+router.post("/upload", upload.single("file"), uploadNote);
 router.post("/", createNote);
 router.get("/", getNotes);
 router.get("/:id", getNoteById);
