@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { uploadNoteService, createNoteService } from "./notes.service";
 
 export const uploadNote = async (req: Request, res: Response) => {
   try {
@@ -18,8 +19,11 @@ export const uploadNote = async (req: Request, res: Response) => {
       });
     }
 
+    const data = await uploadNoteService(file, body);
+
     return res.status(200).json({
       message: "Note uploaded successfully",
+      data: data,
     });
   } catch (error) {
     return res.status(500).json({
@@ -30,11 +34,19 @@ export const uploadNote = async (req: Request, res: Response) => {
 
 export const createNote = async (req: Request, res: Response) => {
   try {
-    const { title, content } = req.body;
+    const { title, desc, content } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({
+        message: "Title and content are required",
+      });
+    }
+
+    const data = await createNoteService(title, desc || "", content);
 
     return res.status(201).json({
       message: "Note created successfully",
-      data: { title, content },
+      data,
     });
   } catch (error) {
     return res.status(500).json({
