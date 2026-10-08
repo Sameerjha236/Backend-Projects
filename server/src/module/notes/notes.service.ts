@@ -1,5 +1,6 @@
 import { db } from "../../prisma/db";
 import { parseMarkdownFile } from "../../services/parser/markdown.service";
+import { markdownToHtml } from "../../services/parser/markdownToHtml.service";
 import type { NoteType } from "../../types/types/notes";
 
 export const uploadNoteService = async (
@@ -29,4 +30,32 @@ export const createNoteService = async (
   });
 
   return created;
+};
+
+export const getNotesService = async () => {
+  const notes = await db.orm.public.Note.select(
+    "id",
+    "title",
+    "description",
+    "createdAt",
+  ).all();
+  return notes;
+};
+
+export const getNoteByIdService = async (id: string) => {
+  const note = await db.orm.public.Note.select(
+    "id",
+    "title",
+    "description",
+    "content",
+    "createdAt",
+    "updatedAt",
+  )
+    .where({ id })
+    .first();
+
+  if (note?.content) {
+    note.content = await markdownToHtml(note?.content || "");
+  }
+  return note;
 };

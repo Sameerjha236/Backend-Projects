@@ -1,5 +1,10 @@
 import type { Request, Response } from "express";
-import { uploadNoteService, createNoteService } from "./notes.service";
+import {
+  uploadNoteService,
+  createNoteService,
+  getNotesService,
+  getNoteByIdService,
+} from "./notes.service";
 
 export const uploadNote = async (req: Request, res: Response) => {
   try {
@@ -57,9 +62,10 @@ export const createNote = async (req: Request, res: Response) => {
 
 export const getNotes = async (req: Request, res: Response) => {
   try {
+    const notes = await getNotesService();
     return res.status(200).json({
       message: "Notes fetched successfully",
-      data: [],
+      data: notes,
     });
   } catch (error) {
     return res.status(500).json({
@@ -71,10 +77,22 @@ export const getNotes = async (req: Request, res: Response) => {
 export const getNoteById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({
+        message: "Note ID is required",
+      });
+    }
+    const note = await getNoteByIdService(String(id));
+
+    if (!note) {
+      return res.status(404).json({
+        message: "Note not found",
+      });
+    }
 
     return res.status(200).json({
       message: "Note fetched successfully",
-      data: { id },
+      data: note,
     });
   } catch (error) {
     return res.status(500).json({

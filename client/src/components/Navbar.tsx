@@ -13,10 +13,11 @@ interface NavItem {
 
 const defaultNavItems: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "Create Note", href: "/createNote" },
+  { label: "Notes Upload", href: "/NoteUpload" },
   { label: "Notes", href: "/notes" },
   { label: "User Details", href: "/userDetails" },
   { label: "Login", href: "/login" },
-  { label: "Notes Upload", href: "/NoteUpload" },
 ];
 
 interface NavbarProps {
