@@ -4,6 +4,7 @@ import userDetailsRoutes from "./module/userDetails/userDetails.routes";
 import loginRoutes from "./module/auth/login/login.route";
 import refreshRoutes from "./module/auth/refresh/refresh.route";
 import noteRoutes from "./module/notes/notes.route";
+
 const app = express();
 
 app.use(
